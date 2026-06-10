@@ -1,8 +1,9 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Desafio Eureka: Campo Largo PR</title>
     <!-- Tailwind CSS CDN para Design Moderno -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,9 +29,6 @@
                             700: '#15803d',
                             900: '#14532d',
                         }
-                    },
-                    backgroundImage: {
-                        'wave-gradient': 'linear-gradient(135deg, #0c4a6e 0%, #14532d 100%)',
                     }
                 }
             }
@@ -41,6 +39,7 @@
         
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         /* Animações suaves */
@@ -67,7 +66,7 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-waterBlue-900 via-slate-900 to-ecoGreen-900 min-h-screen text-slate-100 flex items-center justify-center p-3 md:p-6 relative overflow-x-hidden">
+<body class="bg-gradient-to-br from-waterBlue-900 via-slate-900 to-ecoGreen-900 min-h-screen text-slate-100 relative overflow-x-hidden">
 
     <!-- Bolhas animadas de fundo decorativo -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
@@ -80,247 +79,244 @@
     <!-- Canvas para efeito de Confetes de Vitória -->
     <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-50 w-full h-full"></canvas>
 
-    <!-- CONTAINER DO APP -->
-    <div class="w-full max-w-4xl bg-slate-900/95 border border-slate-800/80 rounded-3xl shadow-2xl overflow-hidden relative z-10 flex flex-col md:min-h-[620px] fade-in">
+    <!-- WRAPPER PRINCIPAL DE CENTRAGEM (Resolve o bug do encolhimento no celular) -->
+    <div class="w-full min-h-screen flex flex-col justify-center items-center p-3 sm:p-4 md:p-6 z-10 relative">
         
-        <!-- TELA 1: TELA INICIAL -->
-        <section id="screen-start" class="p-6 md:p-12 flex flex-col items-center justify-between text-center grow fade-in">
-            <div class="w-full flex flex-col items-center">
-                <!-- Distintivo Escolar -->
-                <div class="inline-flex items-center gap-2 bg-waterBlue-500/10 border border-waterBlue-500/30 px-4 py-2 rounded-full text-waterBlue-300 text-xs font-bold uppercase tracking-wider mb-6">
-                    💧 Desafio Eureka: Campo Largo PR
-                </div>
-                
-                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-waterBlue-400 to-ecoGreen-400 bg-clip-text text-transparent mb-4">
-                    Forca Sustentável
-                </h1>
-                <p class="text-slate-400 text-sm md:text-base max-w-xl leading-relaxed mb-8">
-                    Ajude a nossa comunidade a enfrentar os desafios da escassez de água e degradação ambiental. Descubra as palavras-chave ecológicas (<span class="text-ecoGreen-400 font-semibold">Green & Blue Skills</span>) que solucionam as crises hídricas apresentadas.
-                </p>
-
-                <!-- Box dos Integrantes -->
-                <div class="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-4 w-full max-w-md mb-8">
-                    <span class="text-slate-500 text-xs font-bold uppercase tracking-wider block mb-2">Grupo de Desenvolvimento:</span>
-                    <div class="grid grid-cols-2 gap-2 text-slate-300 font-bold text-sm">
-                        <div class="flex items-center justify-center gap-1.5"><span class="w-2 h-2 rounded-full bg-waterBlue-500"></span> Kauã</div>
-                        <div class="flex items-center justify-center gap-1.5"><span class="w-2 h-2 rounded-full bg-waterBlue-500"></span> Micael</div>
-                        <div class="flex items-center justify-center gap-1.5"><span class="w-2 h-2 rounded-full bg-ecoGreen-500"></span> Pedro</div>
-                        <div class="flex items-center justify-center gap-1.5"><span class="w-2 h-2 rounded-full bg-ecoGreen-500"></span> Thiago</div>
+        <!-- CONTAINER DO APP -->
+        <div class="w-full max-w-4xl bg-slate-900/95 border border-slate-800/80 rounded-3xl shadow-2xl overflow-hidden flex flex-col shrink-0 md:min-h-[620px] fade-in">
+            
+            <!-- TELA 1: TELA INICIAL -->
+            <section id="screen-start" class="p-5 sm:p-8 md:p-12 flex flex-col items-center justify-between text-center grow fade-in">
+                <div class="w-full flex flex-col items-center">
+                    <!-- Distintivo Escolar -->
+                    <div class="inline-flex items-center gap-2 bg-waterBlue-500/10 border border-waterBlue-500/30 px-4 py-2 rounded-full text-waterBlue-300 text-xs font-bold uppercase tracking-wider mb-6">
+                        💧 Desafio Eureka: Campo Largo PR
                     </div>
-                </div>
-            </div>
-
-            <!-- Cadastro do Jogador -->
-            <div class="w-full max-w-md">
-                <label for="player-name" class="block text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2 text-left ml-1">Quem está no comando?</label>
-                <input type="text" id="player-name" placeholder="Digite seu nome..." class="w-full bg-slate-800 border border-slate-700 focus:border-waterBlue-500 focus:ring-1 focus:ring-waterBlue-500 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 font-medium focus:outline-none transition duration-200 mb-6">
-                
-                <button onclick="startGame()" class="w-full bg-gradient-to-r from-waterBlue-600 to-ecoGreen-600 hover:from-waterBlue-500 hover:to-ecoGreen-500 active:scale-95 text-white font-bold text-lg py-4 rounded-xl shadow-lg transition duration-150">
-                    Começar Missão ➔
-                </button>
-            </div>
-        </section>
-
-        <!-- TELA 2: TELA DO JOGO (FORCA ATIVA) -->
-        <section id="screen-game" class="hidden p-5 md:p-8 flex flex-col grow fade-in">
-            <!-- Cabeçalho do Painel -->
-            <div class="grid grid-cols-3 gap-2 items-center mb-5 pb-4 border-b border-slate-800">
-                <div>
-                    <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Rodada</span>
-                    <div class="text-lg font-extrabold text-waterBlue-400" id="round-indicator">1 / 15</div>
-                </div>
-                <div class="text-center">
-                    <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Pontuação</span>
-                    <div class="text-xl font-black text-ecoGreen-400" id="score-indicator">0000</div>
-                </div>
-                <div class="text-right">
-                    <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Tempo Restante</span>
-                    <div class="text-lg font-bold text-amber-400" id="timer-indicator">⏱ 03:00</div>
-                </div>
-            </div>
-
-            <!-- Barra de Progresso Superior -->
-            <div class="w-full h-1.5 bg-slate-800 rounded-full mb-6 overflow-hidden">
-                <div id="progress-bar-fill" class="h-full bg-gradient-to-r from-waterBlue-500 to-ecoGreen-500 transition-all duration-300" style="width: 0%"></div>
-            </div>
-
-            <!-- Alerta do Objetivo e Instrução Obrigatória -->
-            <div class="bg-waterBlue-950/40 border border-waterBlue-800/40 px-4 py-2.5 rounded-xl text-center mb-6">
-                <p class="text-xs md:text-sm text-waterBlue-300 font-semibold">
-                    💡 <span class="uppercase font-bold text-waterBlue-400">Instrução:</span> A palavra escondida representa a <span class="underline">solução sustentável</span> para o problema apresentado abaixo.
-                </p>
-            </div>
-
-            <!-- Grade do Jogo (Forca SVG + Problema) -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center grow mb-6">
-                <!-- Forca SVG (Esquerda) -->
-                <div class="lg:col-span-4 flex justify-center bg-slate-950/40 border border-slate-800/60 p-4 rounded-2xl relative">
-                    <span class="absolute top-2 left-2 text-[10px] uppercase font-extrabold text-rose-500/80 bg-rose-950/20 px-2 py-0.5 rounded-md border border-rose-900/30" id="errors-badge">Erros: 0/6</span>
                     
-                    <svg id="gallows-svg" class="w-40 h-44 md:w-48 md:h-52" viewBox="0 0 200 250">
-                        <!-- Forca Básica Metálica / Sustentável -->
-                        <line x1="20" y1="230" x2="100" y2="230" stroke="#475569" stroke-width="8" stroke-linecap="round"/>
-                        <line x1="60" y1="230" x2="60" y2="20" stroke="#475569" stroke-width="8" stroke-linecap="round"/>
-                        <line x1="60" y1="20" x2="140" y2="20" stroke="#475569" stroke-width="8" stroke-linecap="round"/>
-                        <line x1="140" y1="20" x2="140" y2="50" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
-                        <line x1="60" y1="60" x2="100" y2="20" stroke="#475569" stroke-width="6" stroke-linecap="round"/>
+                    <h1 class="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-waterBlue-400 to-ecoGreen-400 bg-clip-text text-transparent mb-4">
+                        Forca Sustentável
+                    </h1>
+                    <p class="text-slate-400 text-xs sm:text-sm md:text-base max-w-xl leading-relaxed mb-6">
+                        Ajude a nossa comunidade a enfrentar os desafios da escassez de água e degradação ambiental. Descubra as palavras-chave ecológicas (<span class="text-ecoGreen-400 font-semibold">Green & Blue Skills</span>) que solucionam as crises hídricas apresentadas.
+                    </p>
 
-                        <!-- Partes do Boneco Ecológico em Tons Azuis/Verdes -->
-                        <!-- 1. Cabeça (Esfera d'água) -->
-                        <circle id="part-head" cx="140" cy="70" r="20" stroke="#0ea5e9" stroke-width="5" fill="none" class="hidden transition-all duration-300"/>
-                        <!-- 2. Corpo -->
-                        <line id="part-body" x1="140" y1="90" x2="140" y2="150" stroke="#0ea5e9" stroke-width="5" stroke-linecap="round" class="hidden transition-all duration-300"/>
-                        <!-- 3. Braço Esquerdo -->
-                        <line id="part-arm-left" x1="140" y1="110" x2="110" y2="130" stroke="#10b981" stroke-width="5" stroke-linecap="round" class="hidden transition-all duration-300"/>
-                        <!-- 4. Braço Direito -->
-                        <line id="part-arm-right" x1="140" y1="110" x2="170" y2="130" stroke="#10b981" stroke-width="5" stroke-linecap="round" class="hidden transition-all duration-300"/>
-                        <!-- 5. Perna Esquerda -->
-                        <line id="part-leg-left" x1="140" y1="150" x2="115" y2="200" stroke="#22c55e" stroke-width="5" stroke-linecap="round" class="hidden transition-all duration-300"/>
-                        <!-- 6. Perna Direita -->
-                        <line id="part-leg-right" x1="140" y1="150" x2="165" y2="200" stroke="#22c55e" stroke-width="5" stroke-linecap="round" class="hidden transition-all duration-300"/>
-                    </svg>
-                </div>
-
-                <!-- Problema e Slots de Letras (Direita) -->
-                <div class="lg:col-span-8 flex flex-col justify-center gap-4">
-                    <!-- Card de Desafio de Cenário -->
-                    <div class="bg-gradient-to-r from-slate-900 to-slate-800 p-5 rounded-2xl border border-slate-800 shadow-inner">
-                        <div class="text-[10px] font-bold text-ecoGreen-400 uppercase tracking-widest mb-1.5">Problema do Ecossistema:</div>
-                        <p id="problem-text" class="text-sm md:text-base font-medium text-slate-200 leading-relaxed italic">
-                            Carregando problema...
-                        </p>
-                    </div>
-
-                    <!-- Slots Ocultos da Palavra -->
-                    <div class="flex flex-wrap justify-center gap-1.5 md:gap-2 my-2 py-2" id="word-container">
-                        <!-- Gerado dinamicamente -->
+                    <!-- Box dos Integrantes -->
+                    <div class="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-4 w-full max-w-md mb-6">
+                        <span class="text-slate-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider block mb-2">Grupo de Desenvolvimento:</span>
+                        <div class="grid grid-cols-2 gap-2 text-slate-300 font-bold text-xs sm:text-sm">
+                            <div class="flex items-center justify-center gap-1.5"><span class="w-2 h-2 rounded-full bg-waterBlue-500"></span> Kauã</div>
+                            <div class="flex items-center justify-center gap-1.5"><span class="w-2 h-2 rounded-full bg-waterBlue-500"></span> Micael</div>
+                            <div class="flex items-center justify-center gap-1.5"><span class="w-2 h-2 rounded-full bg-ecoGreen-500"></span> Pedro</div>
+                            <div class="flex items-center justify-center gap-1.5"><span class="w-2 h-2 rounded-full bg-ecoGreen-500"></span> Thiago</div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Teclado Virtual Integrado -->
-            <div class="mt-auto">
-                <div class="text-center text-[10px] font-bold text-slate-500 mb-2 uppercase tracking-widest">
-                    Pressione as teclas do computador ou toque nos botões abaixo:
+                <!-- Cadastro do Jogador -->
+                <div class="w-full max-w-md">
+                    <label for="player-name" class="block text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2 text-left ml-1">Quem está no comando?</label>
+                    <input type="text" id="player-name" placeholder="Digite seu nome..." class="w-full bg-slate-800 border border-slate-700 focus:border-waterBlue-500 focus:ring-1 focus:ring-waterBlue-500 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 font-medium focus:outline-none transition duration-200 mb-6">
+                    
+                    <button onclick="startGame()" class="w-full bg-gradient-to-r from-waterBlue-600 to-ecoGreen-600 hover:from-waterBlue-500 hover:to-ecoGreen-500 active:scale-95 text-white font-bold text-base sm:text-lg py-3.5 sm:py-4 rounded-xl shadow-lg transition duration-150">
+                        Começar Missão ➔
+                    </button>
                 </div>
-                <div id="keyboard" class="grid grid-cols-7 sm:grid-cols-9 md:grid-cols-10 gap-1.5 max-w-3xl mx-auto">
-                    <!-- Botões de A-Z inseridos dinamicamente -->
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- TELA 3: TELA DE RESULTADOS (FIM DE JOGO) -->
-        <section id="screen-end" class="hidden p-6 md:p-12 flex flex-col items-center justify-between grow fade-in">
-            <div class="text-center mb-6">
-                <div class="text-5xl md:text-6xl mb-4 animate-bounce">🏆</div>
-                <h2 class="text-3xl md:text-5xl font-black bg-gradient-to-r from-waterBlue-400 via-white to-ecoGreen-400 bg-clip-text text-transparent">
-                    Desafio Concluído!
-                </h2>
-                <p class="text-slate-400 mt-2 text-sm md:text-base">
-                    Fantástico, <span id="end-player-name" class="font-extrabold text-slate-200">Jogador</span>! Suas decisões ajudaram Campo Largo PR.
-                </p>
-            </div>
+            <!-- TELA 2: TELA DO JOGO (FORCA ATIVA) -->
+            <section id="screen-game" class="hidden p-4 sm:p-6 md:p-8 flex flex-col grow fade-in">
+                <!-- Cabeçalho do Painel -->
+                <div class="grid grid-cols-3 gap-2 items-center mb-4 pb-3 border-b border-slate-800">
+                    <div>
+                        <span class="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 tracking-wider">Rodada</span>
+                        <div class="text-base sm:text-lg font-extrabold text-waterBlue-400" id="round-indicator">1 / 15</div>
+                    </div>
+                    <div class="text-center">
+                        <span class="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 tracking-wider">Pontos</span>
+                        <div class="text-lg sm:text-xl font-black text-ecoGreen-400" id="score-indicator">0000</div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 tracking-wider">Tempo</span>
+                        <div class="text-base sm:text-lg font-bold text-amber-400" id="timer-indicator">⏱ 03:00</div>
+                    </div>
+                </div>
 
-            <!-- Painel de Métricas Avançado -->
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 w-full mb-8">
-                <div class="bg-slate-800/40 p-4 rounded-xl border border-slate-700/40 text-center">
-                    <span class="text-[10px] text-slate-400 font-bold uppercase block">Pontos</span>
-                    <p class="text-xl md:text-2xl font-black text-waterBlue-400 mt-1" id="end-score">0</p>
+                <!-- Barra de Progresso Superior -->
+                <div class="w-full h-1.5 bg-slate-800 rounded-full mb-4 overflow-hidden">
+                    <div id="progress-bar-fill" class="h-full bg-gradient-to-r from-waterBlue-500 to-ecoGreen-500 transition-all duration-300" style="width: 0%"></div>
                 </div>
-                <div class="bg-slate-800/40 p-4 rounded-xl border border-slate-700/40 text-center">
-                    <span class="text-[10px] text-slate-400 font-bold uppercase block">Acertos</span>
-                    <p class="text-xl md:text-2xl font-black text-ecoGreen-400 mt-1" id="end-hits">0 / 15</p>
-                </div>
-                <div class="bg-slate-800/40 p-4 rounded-xl border border-slate-700/40 text-center">
-                    <span class="text-[10px] text-slate-400 font-bold uppercase block">Erros</span>
-                    <p class="text-xl md:text-2xl font-black text-rose-500 mt-1" id="end-errors">0</p>
-                </div>
-                <div class="bg-slate-800/40 p-4 rounded-xl border border-slate-700/40 text-center">
-                    <span class="text-[10px] text-slate-400 font-bold uppercase block">Aproveitamento</span>
-                    <p class="text-xl md:text-2xl font-black text-amber-500 mt-1" id="end-percentage">0%</p>
-                </div>
-                <div class="col-span-2 md:col-span-1 bg-slate-800/40 p-4 rounded-xl border border-slate-700/40 text-center">
-                    <span class="text-[10px] text-slate-400 font-bold uppercase block">Tempo Total</span>
-                    <p class="text-xl md:text-2xl font-black text-purple-400 mt-1" id="end-time">0s</p>
-                </div>
-            </div>
 
-            <!-- Feedback Personalizado do Especialista -->
-            <div class="w-full max-w-xl bg-slate-950/50 border border-slate-800 p-5 rounded-2xl mb-8">
-                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1">Avaliação Sustentável:</span>
-                <p id="end-expert-msg" class="text-sm text-slate-300 leading-relaxed font-medium">
-                    Excelente pontuação! Você demonstrou forte entendimento de Green e Blue Skills.
-                </p>
-            </div>
-
-            <!-- Seção de Ranking Local -->
-            <div class="w-full max-w-xl bg-slate-950/40 border border-slate-800/60 p-5 rounded-2xl mb-8">
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center justify-center gap-2">
-                    🏆 TOP 10 - Melhores Pontuações
-                </h3>
-                <div class="space-y-2 max-h-48 overflow-y-auto pr-1" id="leaderboard-container">
-                    <!-- Gerado dinamicamente -->
+                <!-- Alerta do Objetivo e Instrução Obrigatória -->
+                <div class="bg-waterBlue-950/40 border border-waterBlue-800/40 px-3 py-2 rounded-xl text-center mb-4">
+                    <p class="text-xs text-waterBlue-300 font-semibold leading-relaxed">
+                        💡 A palavra escondida representa a <span class="underline">solução sustentável</span> para o problema abaixo.
+                    </p>
                 </div>
-            </div>
 
-            <!-- Botões de Ações -->
-            <div class="flex flex-col sm:flex-row gap-3 w-full max-w-md">
-                <button onclick="resetGame(true)" class="flex-1 bg-gradient-to-r from-waterBlue-600 to-waterBlue-700 hover:from-waterBlue-500 hover:to-waterBlue-600 text-white font-bold py-3.5 rounded-xl transition duration-150 flex items-center justify-center gap-2 shadow-lg">
-                    🔄 Jogar Novamente
-                </button>
-                <button onclick="backToMenu()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3.5 rounded-xl transition duration-150 flex items-center justify-center gap-2 border border-slate-700">
-                    🏠 Menu Inicial
-                </button>
-            </div>
-        </section>
+                <!-- Grade do Jogo (Forca SVG + Problema) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-center grow mb-4">
+                    <!-- Forca SVG (Esquerda) -->
+                    <div class="lg:col-span-4 flex justify-center bg-slate-950/40 border border-slate-800/60 p-3 sm:p-4 rounded-2xl relative">
+                        <span class="absolute top-2 left-2 text-[9px] uppercase font-extrabold text-rose-500/80 bg-rose-950/20 px-2 py-0.5 rounded-md border border-rose-900/30" id="errors-badge">Erros: 0/6</span>
+                        
+                        <svg id="gallows-svg" class="w-32 h-36 sm:w-40 sm:h-44 md:w-48 md:h-52" viewBox="0 0 200 250">
+                            <line x1="20" y1="230" x2="100" y2="230" stroke="#475569" stroke-width="8" stroke-linecap="round"/>
+                            <line x1="60" y1="230" x2="60" y2="20" stroke="#475569" stroke-width="8" stroke-linecap="round"/>
+                            <line x1="60" y1="20" x2="140" y2="20" stroke="#475569" stroke-width="8" stroke-linecap="round"/>
+                            <line x1="140" y1="20" x2="140" y2="50" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+                            <line x1="60" y1="60" x2="100" y2="20" stroke="#475569" stroke-width="6" stroke-linecap="round"/>
+
+                            <!-- Partes do Boneco Ecológico -->
+                            <circle id="part-head" cx="140" cy="70" r="20" stroke="#0ea5e9" stroke-width="5" fill="none" class="hidden transition-all duration-300"/>
+                            <line id="part-body" x1="140" y1="90" x2="140" y2="150" stroke="#0ea5e9" stroke-width="5" stroke-linecap="round" class="hidden transition-all duration-300"/>
+                            <line id="part-arm-left" x1="140" y1="110" x2="110" y2="130" stroke="#10b981" stroke-width="5" stroke-linecap="round" class="hidden transition-all duration-300"/>
+                            <line id="part-arm-right" x1="140" y1="110" x2="170" y2="130" stroke="#10b981" stroke-width="5" stroke-linecap="round" class="hidden transition-all duration-300"/>
+                            <line id="part-leg-left" x1="140" y1="150" x2="115" y2="200" stroke="#22c55e" stroke-width="5" stroke-linecap="round" class="hidden transition-all duration-300"/>
+                            <line id="part-leg-right" x1="140" y1="150" x2="165" y2="200" stroke="#22c55e" stroke-width="5" stroke-linecap="round" class="hidden transition-all duration-300"/>
+                        </svg>
+                    </div>
+
+                    <!-- Problema e Slots de Letras (Direita) -->
+                    <div class="lg:col-span-8 flex flex-col justify-center gap-3 sm:gap-4">
+                        <!-- Card de Desafio de Cenário -->
+                        <div class="bg-gradient-to-r from-slate-900 to-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-800 shadow-inner">
+                            <div class="text-[9px] sm:text-[10px] font-bold text-ecoGreen-400 uppercase tracking-widest mb-1">Cenário Crítico:</div>
+                            <p id="problem-text" class="text-xs sm:text-sm font-medium text-slate-200 leading-relaxed italic">
+                                Carregando problema...
+                            </p>
+                        </div>
+
+                        <!-- Slots Ocultos da Palavra (Otimizados para não quebrar feio no celular) -->
+                        <div class="flex flex-wrap justify-center gap-1 sm:gap-1.5 md:gap-2 my-1 py-1" id="word-container">
+                            <!-- Gerado dinamicamente -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Teclado Virtual Integrado (Melhores espaçamentos para toque móvel) -->
+                <div class="mt-auto">
+                    <div class="text-center text-[9px] font-bold text-slate-500 mb-2 uppercase tracking-widest">
+                        Toque nas letras ou pressione no seu teclado físico:
+                    </div>
+                    <div id="keyboard" class="grid grid-cols-7 sm:grid-cols-9 md:grid-cols-10 gap-1 sm:gap-1.5 max-w-3xl mx-auto">
+                        <!-- Letras inseridas dinamicamente -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- TELA 3: TELA DE RESULTADOS (FIM DE JOGO) -->
+            <section id="screen-end" class="hidden p-5 sm:p-8 md:p-12 flex flex-col items-center justify-between grow fade-in">
+                <div class="text-center mb-5">
+                    <div class="text-4xl sm:text-5xl mb-3 animate-bounce">🏆</div>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-black bg-gradient-to-r from-waterBlue-400 via-white to-ecoGreen-400 bg-clip-text text-transparent">
+                        Desafio Concluído!
+                    </h2>
+                    <p class="text-slate-400 mt-1.5 text-xs sm:text-sm">
+                        Parabéns, <span id="end-player-name" class="font-extrabold text-slate-200">Jogador</span>! Suas decisões salvaram Campo Largo PR.
+                    </p>
+                </div>
+
+                <!-- Painel de Métricas Avançado -->
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-2.5 w-full mb-6">
+                    <div class="bg-slate-800/40 p-3 sm:p-4 rounded-xl border border-slate-700/40 text-center">
+                        <span class="text-[9px] text-slate-400 font-bold uppercase block">Pontos</span>
+                        <p class="text-lg sm:text-xl font-black text-waterBlue-400 mt-1" id="end-score">0</p>
+                    </div>
+                    <div class="bg-slate-800/40 p-3 sm:p-4 rounded-xl border border-slate-700/40 text-center">
+                        <span class="text-[9px] text-slate-400 font-bold uppercase block">Acertos</span>
+                        <p class="text-lg sm:text-xl font-black text-ecoGreen-400 mt-1" id="end-hits">0 / 15</p>
+                    </div>
+                    <div class="bg-slate-800/40 p-3 sm:p-4 rounded-xl border border-slate-700/40 text-center">
+                        <span class="text-[9px] text-slate-400 font-bold uppercase block">Erros</span>
+                        <p class="text-lg sm:text-xl font-black text-rose-500 mt-1" id="end-errors">0</p>
+                    </div>
+                    <div class="bg-slate-800/40 p-3 sm:p-4 rounded-xl border border-slate-700/40 text-center">
+                        <span class="text-[9px] text-slate-400 font-bold uppercase block">Aproveitamento</span>
+                        <p class="text-lg sm:text-xl font-black text-amber-500 mt-1" id="end-percentage">0%</p>
+                    </div>
+                    <div class="col-span-2 md:col-span-1 bg-slate-800/40 p-3 sm:p-4 rounded-xl border border-slate-700/40 text-center">
+                        <span class="text-[9px] text-slate-400 font-bold uppercase block">Tempo Total</span>
+                        <p class="text-lg sm:text-xl font-black text-purple-400 mt-1" id="end-time">0s</p>
+                    </div>
+                </div>
+
+                <!-- Avaliação Ecológica -->
+                <div class="w-full max-w-xl bg-slate-950/50 border border-slate-800 p-4 rounded-2xl mb-6">
+                    <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest block mb-1">Avaliação Sustentável:</span>
+                    <p id="end-expert-msg" class="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+                        Carregando avaliação final...
+                    </p>
+                </div>
+
+                <!-- Ranking Local -->
+                <div class="w-full max-w-xl bg-slate-950/40 border border-slate-800/60 p-4 rounded-2xl mb-6">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 text-center">
+                        🏆 TOP 10 - Melhores Pontuações
+                    </h3>
+                    <div class="space-y-1.5 max-h-36 overflow-y-auto pr-1" id="leaderboard-container">
+                        <!-- Preenchido via LocalStorage -->
+                    </div>
+                </div>
+
+                <!-- Botões de Ações -->
+                <div class="flex flex-col sm:flex-row gap-2.5 w-full max-w-md">
+                    <button onclick="resetGame(true)" class="flex-1 bg-gradient-to-r from-waterBlue-600 to-waterBlue-700 hover:from-waterBlue-500 hover:to-waterBlue-600 text-white font-bold py-3 rounded-xl transition duration-150 flex items-center justify-center gap-2 shadow-lg text-sm">
+                        🔄 Jogar Novamente
+                    </button>
+                    <button onclick="backToMenu()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-xl transition duration-150 flex items-center justify-center gap-2 border border-slate-700 text-sm">
+                        🏠 Menu Inicial
+                    </button>
+                </div>
+            </section>
+
+        </div>
 
     </div>
 
     <!-- MODAL DE FEEDBACK (ENTRE RODADAS / TEMPO ESGOTADO) -->
-    <div id="feedback-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-40 hidden flex items-center justify-center p-4">
+    <div id="feedback-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-40 hidden flex items-center justify-center p-3">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl transform scale-95 opacity-0 transition-all duration-300" id="modal-box">
             
-            <!-- Banner Colorido Dinâmico -->
-            <div id="modal-banner" class="p-6 text-white text-center flex flex-col items-center">
-                <span id="modal-icon" class="text-5xl mb-2">🎉</span>
-                <h3 id="modal-title" class="text-2xl font-black">Solução Descoberta!</h3>
-                <p id="modal-subtitle" class="text-xs opacity-90 mt-1 uppercase tracking-wider font-bold">Bônus de velocidade aplicado</p>
+            <div id="modal-banner" class="p-5 text-white text-center flex flex-col items-center">
+                <span id="modal-icon" class="text-4xl mb-1.5">🎉</span>
+                <h3 id="modal-title" class="text-xl md:text-2xl font-black">Solução Descoberta!</h3>
+                <p id="modal-subtitle" class="text-[9px] md:text-xs opacity-90 mt-0.5 uppercase tracking-wider font-bold">Bônus de velocidade aplicado</p>
             </div>
 
-            <div class="p-6 md:p-8">
+            <div class="p-5 md:p-6">
                 <!-- Mostrador da Palavra-Chave Solucionadora -->
-                <div class="mb-5 bg-slate-950/50 p-4 rounded-xl border border-slate-850">
-                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1">Palavra Solução:</span>
-                    <span id="modal-word-reveal" class="text-2xl md:text-3xl font-black text-waterBlue-400 tracking-wider">CISTERNA</span>
+                <div class="mb-4 bg-slate-950/50 p-3 rounded-xl border border-slate-850">
+                    <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest block mb-0.5">Palavra Solução:</span>
+                    <span id="modal-word-reveal" class="text-xl md:text-2xl font-black text-waterBlue-400 tracking-wider">CISTERNA</span>
                 </div>
 
                 <!-- Conteúdo Educativo -->
-                <div class="mb-6">
-                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1">Impacto em Campo Largo PR:</span>
-                    <p id="modal-explanation" class="text-slate-300 text-sm md:text-base leading-relaxed">
+                <div class="mb-4">
+                    <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest block mb-0.5">Impacto em Campo Largo PR:</span>
+                    <p id="modal-explanation" class="text-slate-300 text-xs md:text-sm leading-relaxed">
                         Explicação de como a solução resolve o problema ecológico...
                     </p>
                 </div>
 
                 <!-- Pontuação Adquirida -->
-                <div class="mb-6 flex justify-between items-center text-xs font-bold text-slate-400 border-t border-b border-slate-800 py-3">
+                <div class="mb-4 flex justify-between items-center text-[10px] font-bold text-slate-400 border-t border-b border-slate-800 py-2.5">
                     <span>Pontos Ganhos: <span id="modal-pts-earned" class="text-ecoGreen-400">+100</span></span>
-                    <span>Erros cometidos na rodada: <span id="modal-errors-count" class="text-rose-400">0</span></span>
+                    <span>Erros na rodada: <span id="modal-errors-count" class="text-rose-400">0</span></span>
                 </div>
 
                 <!-- Botão de Próximo e Barra de Auto-avanço -->
                 <div class="flex flex-col gap-2">
-                    <button id="modal-action-btn" onclick="closeFeedbackModal()" class="w-full bg-gradient-to-r from-waterBlue-600 to-ecoGreen-600 text-white font-bold py-4 rounded-xl hover:from-waterBlue-500 hover:to-ecoGreen-500 transition duration-150 flex justify-center items-center gap-2">
+                    <button id="modal-action-btn" onclick="closeFeedbackModal()" class="w-full bg-gradient-to-r from-waterBlue-600 to-ecoGreen-600 text-white font-bold py-3 rounded-xl hover:from-waterBlue-500 hover:to-ecoGreen-500 transition duration-150 flex justify-center items-center gap-2 text-sm">
                         <span>Avançar Desafio</span> <span id="modal-countdown-timer">(8s)</span>
                     </button>
-                    <span class="text-[10px] text-center text-slate-500 uppercase font-semibold">O jogo avançará automaticamente após o tempo</span>
+                    <span class="text-[9px] text-center text-slate-500 uppercase font-semibold">O jogo avançará automaticamente após o tempo</span>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Rodapé de Créditos -->
-    <footer class="mt-8 text-center text-[10px] text-slate-500 font-semibold uppercase tracking-wider z-10">
+    <footer class="text-center text-[9px] text-slate-500 font-semibold uppercase tracking-wider py-4 z-10">
         Trabalho de Biologia/Sustentabilidade • Campo Largo PR • Desafio Eureka 2026
     </footer>
 
@@ -417,9 +413,8 @@
         let playerName = "";
         let selectedLetters = [];
         
-        // Controles de tempo
         let roundTimer;
-        let roundTimeLeft = 180; // 180 segundos por rodada
+        let roundTimeLeft = 180;
         let totalTimeElapsed = 0;
         let totalTimeTimer;
         
@@ -427,7 +422,6 @@
         let countdownInterval;
         let isRoundActive = false;
 
-        // Elementos DOM principais
         const screenStart = document.getElementById('screen-start');
         const screenGame = document.getElementById('screen-game');
         const screenEnd = document.getElementById('screen-end');
@@ -451,18 +445,18 @@
 
             if (type === 'correct') {
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(392.00, now); // G4
-                osc.frequency.setValueAtTime(523.25, now + 0.08); // C5
-                osc.frequency.setValueAtTime(659.25, now + 0.16); // E5
-                osc.frequency.setValueAtTime(783.99, now + 0.24); // G5
+                osc.frequency.setValueAtTime(392.00, now);
+                osc.frequency.setValueAtTime(523.25, now + 0.08);
+                osc.frequency.setValueAtTime(659.25, now + 0.16);
+                osc.frequency.setValueAtTime(783.99, now + 0.24);
                 gainNode.gain.setValueAtTime(0.12, now);
                 gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
                 osc.start(now);
                 osc.stop(now + 0.5);
             } else if (type === 'error') {
                 osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(220.00, now); // A3
-                osc.frequency.linearRampToValueAtTime(130.81, now + 0.25); // C3
+                osc.frequency.setValueAtTime(220.00, now);
+                osc.frequency.linearRampToValueAtTime(130.81, now + 0.25);
                 gainNode.gain.setValueAtTime(0.18, now);
                 gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
                 osc.start(now);
@@ -496,14 +490,12 @@
             const inputName = document.getElementById('player-name').value.trim();
             playerName = inputName ? inputName : "Apresentação Coletiva";
 
-            // Resetar variáveis principais de partida
             currentQuestionIndex = 0;
             score = 0;
             totalErrorsGame = 0;
             totalSolvedWords = 0;
             totalTimeElapsed = 0;
 
-            // Embaralhar banco de questões
             questions.sort(() => Math.random() - 0.5);
 
             screenStart.classList.add('hidden');
@@ -517,34 +509,25 @@
             isRoundActive = true;
             errorsCount = 0;
             selectedLetters = [];
-            roundTimeLeft = 180; // 3 Minutos por rodada
+            roundTimeLeft = 180;
 
-            // Atualização dos painéis informativos
             document.getElementById('round-indicator').innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
             document.getElementById('score-indicator').innerText = String(score).padStart(4, '0');
             document.getElementById('errors-badge').innerText = `Erros: ${errorsCount}/6`;
 
-            // Resetar progresso visual superior
             const progressPct = (currentQuestionIndex / questions.length) * 100;
             document.getElementById('progress-bar-fill').style.width = `${progressPct}%`;
 
-            // Esconder todas as partes do SVG do Boneco
             const parts = ['head', 'body', 'arm-left', 'arm-right', 'leg-left', 'leg-right'];
             parts.forEach(part => {
                 document.getElementById(`part-${part}`).classList.add('hidden');
             });
 
-            // Carregar texto do problema
             const roundData = questions[currentQuestionIndex];
             document.getElementById('problem-text').innerText = `"${roundData.problem}"`;
 
-            // Renderizar slots da palavra secreta
             renderWordSlots(roundData.word);
-
-            // Renderizar teclado virtual
             renderKeyboard();
-
-            // Ativar temporizador da rodada
             startRoundTimer();
         }
 
@@ -552,7 +535,8 @@
             wordContainer.innerHTML = '';
             for (let i = 0; i < word.length; i++) {
                 const slot = document.createElement('div');
-                slot.className = "w-8 h-12 md:w-10 md:h-14 border-b-4 border-waterBlue-500 flex items-center justify-center font-black text-xl md:text-3xl text-slate-100 select-none transition-all duration-300";
+                // Estilo responsivo otimizado para não quebrar em telas estreitas
+                slot.className = "w-6 h-10 sm:w-8 sm:h-12 md:w-10 md:h-14 border-b-2 sm:border-b-4 border-waterBlue-500 flex items-center justify-center font-black text-base sm:text-2xl md:text-3xl text-slate-100 select-none transition-all duration-300";
                 slot.setAttribute('data-letter', normalizeChar(word[i]));
                 slot.setAttribute('data-original', word[i]);
                 slot.innerText = '';
@@ -568,16 +552,15 @@
                 const key = document.createElement('button');
                 key.id = `key-${letter}`;
                 key.innerText = letter;
-                key.className = "bg-slate-800 border border-slate-700 hover:border-waterBlue-500 hover:bg-slate-750 text-slate-200 font-bold py-2.5 rounded-lg active:scale-95 text-sm md:text-base transition duration-150 focus:outline-none";
+                // Tamanho de toque mobile amigável e adaptativo
+                key.className = "bg-slate-800 border border-slate-700 hover:border-waterBlue-500 hover:bg-slate-750 text-slate-200 font-bold py-2 sm:py-2.5 rounded-lg active:scale-95 text-xs sm:text-sm md:text-base transition duration-150 focus:outline-none";
                 key.onclick = () => handleLetterChoice(letter);
                 keyboardContainer.appendChild(key);
             });
         }
 
-        // Listener de teclas de teclado real
         window.addEventListener('keydown', (event) => {
             if (!isRoundActive) return;
-            // Se o modal de transição estiver aberto, ignorar
             if (!document.getElementById('feedback-modal').classList.contains('hidden')) return;
 
             const typedKey = event.key.toUpperCase();
@@ -586,7 +569,6 @@
             }
         });
 
-        // Auxiliar de normalização de caracteres para português (Acento e Cedilha)
         function normalizeChar(char) {
             return char.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
         }
@@ -596,11 +578,10 @@
 
             selectedLetters.push(letter);
 
-            // Desativar tecla visualmente
             const keyElement = document.getElementById(`key-${letter}`);
             if (keyElement) {
                 keyElement.disabled = true;
-                keyElement.className = "bg-slate-900 border border-slate-800 text-slate-600 font-bold py-2.5 rounded-lg cursor-not-allowed text-sm md:text-base focus:outline-none";
+                keyElement.className = "bg-slate-900 border border-slate-800 text-slate-600 font-bold py-2 sm:py-2.5 rounded-lg cursor-not-allowed text-xs sm:text-sm md:text-base focus:outline-none";
             }
 
             const currentObj = questions[currentQuestionIndex];
@@ -608,12 +589,10 @@
             const normalizedLetters = originalLetters.map(normalizeChar);
 
             if (normalizedLetters.includes(letter)) {
-                // Letra Correta
                 playSound('correct');
                 revealMatchedLetters(letter, originalLetters, normalizedLetters);
                 checkRoundCompletion();
             } else {
-                // Letra Incorreta
                 handleIncorrectChoice();
             }
         }
@@ -638,17 +617,14 @@
 
             document.getElementById('errors-badge').innerText = `Erros: ${errorsCount}/6`;
 
-            // Diminuir pontos pelo erro (-5 pontos)
             score = Math.max(0, score - 5);
             document.getElementById('score-indicator').innerText = String(score).padStart(4, '0');
 
-            // Exibir partes do boneco
             const parts = ['head', 'body', 'arm-left', 'arm-right', 'leg-left', 'leg-right'];
             if (errorsCount <= 6) {
                 document.getElementById(`part-${parts[errorsCount - 1]}`).classList.remove('hidden');
             }
 
-            // Derrota por limite de erros
             if (errorsCount >= 6) {
                 endRound(false, 'gallows');
             }
@@ -694,9 +670,9 @@
             indicator.innerText = `⏱ ${m}:${s}`;
 
             if (roundTimeLeft <= 30) {
-                indicator.className = "text-lg font-bold text-rose-500 animate-pulse";
+                indicator.className = "text-base sm:text-lg font-bold text-rose-500 animate-pulse";
             } else {
-                indicator.className = "text-lg font-bold text-amber-400";
+                indicator.className = "text-base sm:text-lg font-bold text-amber-400";
             }
         }
 
@@ -726,7 +702,6 @@
             const earnedPtsSpan = document.getElementById('modal-pts-earned');
             const errorsCountSpan = document.getElementById('modal-errors-count');
 
-            // Revelar modal
             modal.classList.remove('hidden');
             setTimeout(() => {
                 modalBox.classList.remove('scale-95', 'opacity-0');
@@ -738,13 +713,11 @@
 
             if (isWon) {
                 totalSolvedWords++;
-                
-                // Cálculo de Pontuação: +100 base. Bônus velocidade: metade do tempo restante em segundos.
                 const speedBonus = Math.max(0, Math.floor(roundTimeLeft / 2));
                 const pointsGained = 100 + speedBonus;
                 score += pointsGained;
 
-                banner.className = "p-6 bg-gradient-to-r from-ecoGreen-600 to-emerald-700 text-white text-center flex flex-col items-center";
+                banner.className = "p-5 bg-gradient-to-r from-ecoGreen-600 to-emerald-700 text-white text-center flex flex-col items-center";
                 icon.innerText = "🎉";
                 title.innerText = "Solução Descoberta!";
                 subtitle.innerText = `Bônus de tempo aplicado: +${speedBonus} pontos`;
@@ -752,12 +725,12 @@
                 earnedPtsSpan.className = "text-ecoGreen-400";
 
                 playSound('success-long');
-                fireConfetti(120); // Chuva de confetes
+                fireConfetti(120);
             } else {
-                banner.className = "p-6 bg-gradient-to-r from-rose-700 to-red-800 text-white text-center flex flex-col items-center";
+                banner.className = "p-5 bg-gradient-to-r from-rose-700 to-red-800 text-white text-center flex flex-col items-center";
                 icon.innerText = reason === 'timeout' ? "⏱" : "💀";
                 title.innerText = reason === 'timeout' ? "Tempo Esgotado!" : "Forca! Tentativas Acabaram";
-                subtitle.innerText = "Desta vez a comunidade sofreu os impactos";
+                subtitle.innerText = "A comunidade sofreu os impactos ecológicos";
                 earnedPtsSpan.innerText = "0";
                 earnedPtsSpan.className = "text-rose-400";
 
@@ -766,7 +739,6 @@
 
             document.getElementById('score-indicator').innerText = String(score).padStart(4, '0');
 
-            // Contagem regressiva para fechar o modal
             let countdown = 8;
             const countdownSpan = document.getElementById('modal-countdown-timer');
             countdownSpan.innerText = `(${countdown}s)`;
@@ -791,7 +763,6 @@
             setTimeout(() => {
                 modal.classList.add('hidden');
 
-                // Passar para a próxima rodada ou finalizar
                 currentQuestionIndex++;
                 if (currentQuestionIndex < questions.length) {
                     loadRound();
@@ -808,13 +779,11 @@
             isRoundActive = false;
             clearInterval(totalTimeTimer);
             
-            // Forçar 100% preenchido na barra
             document.getElementById('progress-bar-fill').style.width = '100%';
 
             screenGame.classList.add('hidden');
             screenEnd.classList.remove('hidden');
 
-            // Inserir dados finais do relatório
             document.getElementById('end-player-name').innerText = playerName;
             document.getElementById('end-score').innerText = score;
             document.getElementById('end-hits').innerText = `${totalSolvedWords} / ${questions.length}`;
@@ -824,7 +793,6 @@
             const percentage = Math.round((totalSolvedWords / questions.length) * 100);
             document.getElementById('end-percentage').innerText = `${percentage}%`;
 
-            // Mensagem personalizada do especialista sustentável
             const msgBox = document.getElementById('end-expert-msg');
             if (percentage === 100) {
                 msgBox.innerHTML = "🏆 <strong>Gênio Ecológico Lendário!</strong> Sua apresentação foi brilhante. Você protegeu 100% de Campo Largo PR, implementou soluções perfeitas e liderará o desenvolvimento do município no caminho sustentável!";
@@ -838,7 +806,6 @@
                 msgBox.innerHTML = "⚠️ <strong>Alerta Crítico Ecológico!</strong> A crise hídrica superou as medidas propostas. Precisamos estudar mais as soluções de saneamento e reflorestamento para salvar os reservatórios e a agricultura local.";
             }
 
-            // Gravar dados na tabela de líderes do LocalStorage
             saveScoreToLeaderboard(playerName, score, percentage, totalTimeElapsed);
             renderLeaderboard();
         }
@@ -877,7 +844,6 @@
 
             leaderboard.push(newEntry);
             
-            // Ordenar por: maior pontuação primeiro, se empatar por menor tempo
             leaderboard.sort((a, b) => {
                 if (b.score !== a.score) {
                     return b.score - a.score;
@@ -885,7 +851,6 @@
                 return a.time - b.time;
             });
 
-            // Limitar em 10 melhores
             leaderboard = leaderboard.slice(0, 10);
 
             localStorage.setItem('eureka_skills_ranking_v2', JSON.stringify(leaderboard));
@@ -898,26 +863,26 @@
             const leaderboard = JSON.parse(localStorage.getItem('eureka_skills_ranking_v2')) || [];
 
             if (leaderboard.length === 0) {
-                container.innerHTML = `<div class="text-center text-slate-500 py-4 font-medium text-xs uppercase">Nenhuma missão de equipe registrada ainda.</div>`;
+                container.innerHTML = `<div class="text-center text-slate-500 py-3 font-medium text-[10px] uppercase">Nenhuma missão de equipe registrada ainda.</div>`;
                 return;
             }
 
             leaderboard.forEach((entry, idx) => {
                 const medals = ["🥇", "🥈", "🥉", "🏅", "🏅", "👤", "👤", "👤", "👤", "👤"];
                 const item = document.createElement('div');
-                item.className = "flex items-center justify-between p-3 rounded-xl bg-slate-900 border border-slate-800 shadow-sm";
+                item.className = "flex items-center justify-between p-2.5 rounded-xl bg-slate-900 border border-slate-800 shadow-sm";
                 
                 item.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <span class="text-lg">${medals[idx] || "👤"}</span>
-                        <div class="flex flex-col">
-                            <span class="font-bold text-slate-200 text-sm">${entry.name}</span>
-                            <span class="text-[10px] text-slate-500 font-semibold">${entry.date} - Tempo: ${entry.time}s</span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-base">${medals[idx] || "👤"}</span>
+                        <div class="flex flex-col text-left">
+                            <span class="font-bold text-slate-200 text-xs">${entry.name}</span>
+                            <span class="text-[9px] text-slate-500 font-semibold">${entry.date} - Tempo: ${entry.time}s</span>
                         </div>
                     </div>
                     <div class="text-right">
-                        <span class="font-black text-waterBlue-400 block text-sm">${entry.score} pts</span>
-                        <span class="text-[10px] text-ecoGreen-400 font-bold">${entry.percentage}% Acertos</span>
+                        <span class="font-black text-waterBlue-400 block text-xs">${entry.score} pts</span>
+                        <span class="text-[9px] text-ecoGreen-400 font-bold">${entry.percentage}% Acertos</span>
                     </div>
                 `;
                 container.appendChild(item);
@@ -967,7 +932,7 @@
                 if (p.y < canvas.height + 40 && p.x > -20 && p.x < canvas.width + 20) {
                     activeParticles++;
                     p.tiltAngle += p.tiltAngleInc;
-                    p.vy += 0.42; // Gravidade acelerando queda
+                    p.vy += 0.42;
                     p.x += p.vx;
                     p.y += p.vy;
 
@@ -988,4 +953,6 @@
         }
     </script>
 </body>
-</html> 
+</html>
+
+```
